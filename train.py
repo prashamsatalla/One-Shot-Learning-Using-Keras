@@ -4,10 +4,6 @@ import os
 import cv2
 import skimage
 from matplotlib import pyplot as plt
-
-
-#os.environ['KERAS_BACKEND']='tensorflow'
-
 from keras import backend as K
 from keras.models import Sequential, Model
 from keras.layers import Conv2D, Flatten, Dense, MaxPooling2D, BatchNormalization, Input
@@ -15,34 +11,9 @@ from keras.optimizers import Adam
 from keras.losses import binary_crossentropy
 from keras.layers.core import Lambda
 from keras import backend as K
-'''
 
-def load_images(path):
-
-	data_path=path
-	X=[]
-	y=[]
-
-	for img_name in os.listdir(data_path):
-
-		#img = cv2.imread(os.path.join(data_path,img_name))
-		img = skimage.io.imread(os.path.join(data_path,img_name))
-		#img = cv2.resize(img, (256,256))
-		img = skimage.transform.resize(img,(256,256))
-		plt.imshow(img)
-		plt.show()
-		img = np.reshape(img,(-1,256,256,3))
-
-		X.append(img)
-		y.append(img_name[:-4])
-
-
-	return X,y	
-'''
 
 path = '/home/prashamsa/Desktop/CNN/cnn_trials/One shot learning/data'
-#training_data = []
-#X,y = load_images(path)
 
 def read_and_resize(img):
 	img = skimage.io.imread(img)
@@ -135,19 +106,9 @@ model.compile(loss = "binary_crossentropy", optimizer = optimizer ,metrics = ['a
 
 batch_size=32
 loss_history = []
-'''
-for j in range(0,10000):
-	(images,labels)=get_mini_batch(batch_size = 32, path = path)
-	loss = model.train_on_batch(images,labels)
-	looss_history.append(loss)
-	if i % 200 == 0:
-		print("epoch {},training loss: {:.5f}".format(i,np.mean(loss_history)))
-'''
+
 (images,labels)=get_mini_batch(batch_size = 64, path = path)
 
-#print(len(images),len(labels),np.array(images).shape,np.array(labels).shape)
-#print(images[:1])
-#print(labels)
 
 model.fit(images,labels,epochs = 20, batch_size=32)
 

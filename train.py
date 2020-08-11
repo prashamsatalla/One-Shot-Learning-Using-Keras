@@ -13,7 +13,7 @@ from keras.layers.core import Lambda
 from keras import backend as K
 
 
-path = '/home/prashamsa/Desktop/CNN/cnn_trials/One shot learning/data'
+path = './data'
 
 def read_and_resize(img):
 	img = skimage.io.imread(img)

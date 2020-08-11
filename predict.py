@@ -12,17 +12,14 @@ model = load_model("one_shot_80.h5")
 
 model.compile(loss = "binary_crossentropy", optimizer = Adam() ,metrics = ['accuracy'])
 
-path = '/home/prashamsa/Desktop/CNN/cnn_trials/One shot learning/'
-
-
 def read_and_resize(img):
 	img = skimage.io.imread(img)
 	img = skimage.transform.resize(img,(256,256))
 	img = np.reshape(img,[-1,256,256,3])
 
 	return img
-img1 = read_and_resize(path+"data/Obama.jpg")
-img2 = read_and_resize(path+"test/Prash.jpg")
+img1 = read_and_resize("./data/Obama.jpg")
+img2 = read_and_resize("./test/Prash.jpg")
 
 classes = model.predict([img1,img2])
 
